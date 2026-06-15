@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <title>诺成时代 · 法考经营模拟器</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+
+            background: linear-gradient(135deg, #fdfbf7 0%, #e6dcb8 100%);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            min-height: 100vh;
+
+            font-family: 'Noto Serif SC', serif;
+
+            padding: 16px;
+
+        }
+
+        .phone {
+
+            width: 375px;
+
+            max-width: 100%;
+
+            height: 700px;
+
+            background-color: #faf9f6;
+
+            border-radius: 40px;
+
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+
+            overflow: hidden;
+
+            position: relative;
+
+            border: 1px solid rgba(197,160,89,0.3);
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .status-bar {
+
+            background: rgba(255,255,255,0.95);
+
+            padding: 12px 20px 6px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            border-bottom: 0.5px solid rgba(197,160,89,0.3);
+
+        }
+
+        .bottom-nav {
+
+            background: rgba(255,255,255,0.96);
+
+            backdrop-filter: blur(10px);
+
+            display: flex;
+
+            justify-content: space-around;
+
+            padding: 8px 16px 12px;
+
+            border-top: 0.5px solid rgba(197,160,89,0.3);
+
+        }
+
+        .nav-item {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 4px;
+
+            font-size: 10px;
+
+            color: #8a7a5c;
+
+            cursor: pointer;
+
+        }
+
+        .nav-item i { font-size: 20px; }
+
+        .nav-item.active { color: #c5a059; }
+
+        .main-view {
+
+            flex: 1;
+
+            overflow-y: auto;
+
+            background: #faf9f6;
+
+        }
+
+        .page {
+
+            display: none;
+
+            padding: 16px 12px;
+
+            height: 100%;
+
+            overflow-y: auto;
+
+        }
+
+        .page.active-page { display: block; }
+
+        .fullscreen-story {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: #2c2416;
+
+            color: #f5e6c8;
+
+            z-index: 200;
+
+            display: none;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 24px;
+
+            text-align: center;
+
+        }
+
+        .fullscreen-story.active { display: flex; }
+
+        .story-text { font-size: 18px; line-height: 1.6; margin-bottom: 30px; }
+
+        .back-to-phone {
+
+            background: #c5a059;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 24px;
+
+            border-radius: 40px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .chat-bubble {
+
+            display: flex;
+
+            margin-bottom: 16px;
+
+            gap: 10px;
+
+        }
+
+        .avatar {
+
+            width: 40px;
+
+            height: 40px;
+
+            background: #e5d3b3;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+
+            color: #8a6d3b;
+
+        }
+
+        .bubble {
+
+            background: white;
+
+            padding: 10px 14px;
+
+            border-radius: 20px;
+
+            border-top-left-radius: 4px;
+
+            max-width: 75%;
+
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+        }
+
+        .bubble-name { font-weight: 600; font-size: 12px; color: #c5a059; margin-bottom: 4px; }
+
+        .law-tag {
+
+            background: #f3efe3;
+
+            border-left: 3px solid #c5a059;
+
+            font-size: 10px;
+
+            padding: 4px 8px;
+
+            margin-top: 6px;
+
+            color: #5a4a2a;
+
+        }
+
+        .douyin-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            margin-bottom: 16px;
+
+            overflow: hidden;
+
+        }
+
+        .video-placeholder {
+
+            background: #d9d2bc;
+
+            height: 180px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #8a7a5c;
+
+        }
+
+        .input-bar {
+
+            background: white;
+
+            padding: 8px 12px;
+
+            display: flex;
+
+            gap: 8px;
+
+            border-top: 0.5px solid rgba(197,160,89,0.3);
+
+        }
+
+        .quick-options {
+
+            display: flex;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 6px;
+
+        }
+
+        .opt-btn {
+
+            background: #f0ebe0;
+
+            border: none;
+
+            padding: 4px 12px;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+
+        }
+
+        .text-input {
+
+            flex: 1;
+
+            border: 1px solid #e2d8c0;
+
+            border-radius: 30px;
+
+            padding: 8px 12px;
+
+            font-size: 13px;
+
+        }
+
+        .send-btn {
+
+            background: #c5a059;
+
+            border: none;
+
+            border-radius: 30px;
+
+            padding: 8px 16px;
+
+            color: white;
+
+            font-weight: bold;
+
+        }
+
+        .settings-panel {
+
+            position: fixed;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            background: white;
+
+            border-radius: 24px 24px 0 0;
+
+            padding: 20px;
+
+            transform: translateY(100%);
+
+            transition: 0.3s;
+
+            z-index: 300;
+
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+
+        }
+
+        .settings-panel.open { transform: translateY(0); }
+
+        .card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 12px;
+
+            margin-bottom: 12px;
+
+        }
+
+        .create-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+
+        }
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+
+        }
+
+        .form-group label {
+
+            font-weight: 600;
+
+            color: #8a6d3b;
+
+        }
+
+        select, input {
+
+            padding: 8px;
+
+            border-radius: 20px;
+
+            border: 1px solid #e2d8c0;
+
+            background: white;
+
+        }
+
+        .create-btn {
+
+            background: #c5a059;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px;
+
+            border-radius: 40px;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+
+        }
+
+        .entry-screen {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0,0,0,0.85);
+
+            backdrop-filter: blur(12px);
+
+            z-index: 400;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 30px;
+
+        }
+
+        .entry-btn {
+
+            background: #c5a059;
+
+            border: none;
+
+            color: white;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            padding: 14px 32px;
+
+            border-radius: 60px;
+
+            width: 200px;
+
+            cursor: pointer;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+        }
+
+        .entry-btn.secondary { background: #8a7a5c; }
+
+        .game-title {
+
+            font-size: 28px;
+
+            color: #f5e6c8;
+
+            font-family: 'Cinzel', serif;
+
+            margin-bottom: 20px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="phone" id="app">
+
+    <div class="status-bar"><span>9:41</span><span>📶🔋</span></div>
+
+    <div class="main-view" id="mainView"><!-- 公司创建页面（重头开始用） -->
+
+        <div id="createPage" class="page">
+
+            <div class="card">
+
+                <h3 style="text-align:center; margin-bottom:20px;">🏢 创立你的公司</h3>
+
+                <div class="create-form">
+
+                    <div class="form-group">
+
+                        <label>公司类型</label>
+
+                        <select id="companyType">
+
+                            <option value="有限公司">有限责任公司（有限公司）</option>
+
+                            <option value="股份公司">股份有限公司（股份公司）</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>注册资本（万元）</label>
+
+                        <input type="number" id="capital" value="100" step="10" min="10">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>主营业务</label>
+
+                        <select id="businessType">
+
+                            <option value="娱乐">娱乐传媒（艺人经纪、音乐制作）</option>
+
+                            <option value="MCN">MCN机构（短视频博主孵化）</option>
+
+                            <option value="体育">体育经纪（运动员代理）</option>
+
+                        </select>
+
+                    </div>
+
+                    <button class="create-btn" id="startGameBtn">🚀 开始游戏</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 游戏主页面 -->
+
+        <div id="chatPage" class="page"></div>
+
+        <div id="douyinPage" class="page"></div>
+
+        <div id="momentsPage" class="page"></div>
+
+        <div id="companyPage" class="page"></div>
+
+    </div>
+
+    <div class="bottom-nav">
+
+        <div class="nav-item" data-page="chat"><i class="fas fa-comment"></i><span>微信</span></div>
+
+        <div class="nav-item" data-page="douyin"><i class="fab fa-tiktok"></i><span>抖音</span></div>
+
+        <div class="nav-item" data-page="moments"><i class="fas fa-images"></i><span>朋友圈</span></div>
+
+        <div class="nav-item" data-page="company"><i class="fas fa-building"></i><span>公司</span></div>
+
+        <div class="nav-item" id="settingsBtn"><i class="fas fa-cog"></i><span>设置</span></div>
+
+    </div>
+
+    <div class="input-bar" id="inputBar" style="display: none;">
+
+        <div style="flex:1">
+
+            <div class="quick-options" id="quickOptions"></div>
+
+            <input type="text" id="freeInput" class="text-input" placeholder="输入指令...">
+
+        </div>
+
+        <button id="sendBtn" class="send-btn">发送</button>
+
+    </div>
+
+    <div id="settingsPanel" class="settings-panel">
+
+        <h4 style="margin-bottom:12px">⚙️ 设置</h4>
+
+        <div style="margin-bottom:12px">
+
+            <label>🔑 DeepSeek API Key</label>
+
+            <input type="password" id="apiKeyInput" placeholder="sk-..." style="width:100%; margin-top:4px; padding:6px; border-radius:12px;">
+
+            <button id="saveApiKey" style="margin-top:6px;">保存</button>
+
+        </div>
+
+        <div style="margin-bottom:12px">
+
+            <button id="exportSaveBtn">💾 导出存档</button>
+
+            <button id="importSaveBtn">📂 导入存档</button>
+
+            <button id="resetGameBtn" style="background:#e6c885;">🔄 重置游戏</button>
+
+        </div>
+
+        <div>
+
+            <label>📄 上传参考资料 (txt/pdf)</label>
+
+            <input type="file" id="uploadRef" accept=".txt,.pdf">
+
+            <div id="uploadStatus" style="font-size:12px;"></div>
+
+        </div>
+
+        <button id="closeSettings" style="margin-top:16px; width:100%; background:#f0ebe0;">关闭</button>
+
+    </div>
+
+    <div id="fullscreenStory" class="fullscreen-story">
+
+        <div id="storyText" class="story-text"></div>
+
+        <button class="back-to-phone" id="backToPhone">返回手机</button>
+
+    </div>
+
+    <!-- 选择入口界面 -->
+
+    <div id="entryScreen" class="entry-screen">
+
+        <div class="game-title">诺成时代</div>
+
+        <button id="continueBtn" class="entry-btn">▶ 继续剧情</button>
+
+        <button id="restartBtn" class="entry-btn secondary">🔄 重头开始</button>
+
+    </div>
+
+</div>
+
+<script>
+
+    // 游戏全局状态
+
+    let gameActive = false;
+
+    let state = {
+
+        companyType: '',
+
+        capital: 0,
+
+        business: '',
+
+        money: 0,
+
+        artists: [],
+
+        withdrawalDaysLeft: 0,
+
+        transactions: []
+
+    };
+
+    let chatHistory = [];
+
+    let douyinVideos = [];
+
+    let moments = [];
+
+    let contacts = [];// 根据主营业务生成初始数据（重头开始用）
+
+function initGameData(companyType, capitalWan, business) {
+
+    const capital = capitalWan * 10000;
+
+    let baseArtists = [], baseChat = [], baseDouyin = [], baseMoments = [], baseContacts = [];
+
+    if (business === '娱乐') {
+
+        baseArtists = ['林小溪(已发歌)', '苏栀(合同审核中)', '薛晚宁(背调)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `公司成立！注册资本${capitalWan}万，类型${companyType}，主营娱乐传媒。`, time: '09:00', law: '公司法第23条' },
+
+            { sender: '傅西洲', text: '撤三程序已启动，对方举证期剩余38天。', time: '09:05', law: '商标法第49条' },
+
+            { sender: '沈如鸢', text: '苏栀（黑红小花）有意向签约，道德条款需重点设计。', time: '09:10' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '小梦', desc: '多巴胺穿搭转场', likes: 3420, comments: ['好看'] },
+
+            { user: '诺成时代', desc: '林小溪录音室花絮', likes: 892, comments: ['期待'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '林小溪', content: '新歌筹备中🎵', likes: 28, comments: ['加油'] },
+
+            { user: '沈如鸢', content: '正在洽谈苏栀', likes: 12, comments: [] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '监事/法务', contract: '无固定期限' },
+
+            { name: '傅西洲', role: '总裁', contract: '3年+期权1%' },
+
+            { name: '沈如鸢', role: '艺人总监', contract: '试用期' },
+
+            { name: '陆知行', role: '商务总监', contract: '试用期' }
+
+        ];
+
+    } else if (business === 'MCN') {
+
+        baseArtists = ['小梦(博主)', '阿布(美妆)', '小陈(剧情)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `MCN机构成立，注册资本${capitalWan}万，主营博主孵化。`, time: '09:00' },
+
+            { sender: '运营总监', text: '目前已签约3位博主，急需商务资源。', time: '09:05' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '小梦', desc: '多巴胺穿搭', likes: 5000, comments: ['好美'] },
+
+            { user: '阿布', desc: '口红试色', likes: 2300, comments: ['买它'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '小梦', content: '签约新公司啦', likes: 150, comments: ['恭喜'] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '法务', contract: '全职' },
+
+            { name: '运营总监', role: '内容运营', contract: '3年' }
+
+        ];
+
+    } else if (business === '体育') {
+
+        baseArtists = ['刘翔(田径)', '孙杨(游泳)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `体育经纪公司成立，注册资本${capitalWan}万。`, time: '09:00' },
+
+            { sender: '经纪人', text: '已接触两位运动员，需要赛事资源。', time: '09:05' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '体育频道', desc: '运动员训练日常', likes: 1200, comments: ['加油'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '刘翔', content: '新赛季备战', likes: 88, comments: [] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '法务', contract: '全职' },
+
+            { name: '体育总监', role: '赛事对接', contract: '2年' }
+
+        ];
+
+    }
+
+    const initMoney = capital * 2;
+
+    return {
+
+        companyType, capital, business,
+
+        money: initMoney,
+
+        artists: baseArtists,
+
+        withdrawalDaysLeft: 38,
+
+        transactions: [{ date: '开张日', desc: '注册资本', amount: capital }, { date: '开张日', desc: '天使投资', amount: capital }],
+
+        chatHistory: baseChat,
+
+        douyinVideos: baseDouyin,
+
+        moments: baseMoments,
+
+        contacts: baseContacts
+
+    };
+
+}
+
+function saveFullGame() {
+
+    const fullData = { gameActive, state, chatHistory, douyinVideos, moments, contacts, version: '2.0' };
+
+    localStorage.setItem('nuocheng_full_save', JSON.stringify(fullData));
+
+}
+
+function loadFullGame() {
+
+    const raw = localStorage.getItem('nuocheng_full_save');
+
+    if (raw) {
+
+        try {
+
+            const data = JSON.parse(raw);
+
+            gameActive = data.gameActive;
+
+            state = data.state;
+
+            chatHistory = data.chatHistory;
+
+            douyinVideos = data.douyinVideos;
+
+            moments = data.moments;
+
+            contacts = data.contacts;
+
+            return true;
+
+        } catch(e) { return false; }
+
+    }
+
+    return false;
+
+}
+
+function showEntryScreen() {
+
+    document.getElementById('entryScreen').style.display = 'flex';
+
+    document.getElementById('createPage').classList.remove('active-page');
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+
+    document.getElementById('inputBar').style.display = 'none';
+
+    gameActive = false;
+
+}
+
+function hardResetAndNew() {
+
+    localStorage.removeItem('nuocheng_full_save');
+
+    gameActive = false;
+
+    document.getElementById('entryScreen').style.display = 'none';
+
+    document.getElementById('createPage').classList.add('active-page');
+
+    document.querySelectorAll('.page').forEach(p => {
+
+        if(p.id !== 'createPage') p.classList.remove('active-page');
+
+    });
+
+    document.getElementById('inputBar').style.display = 'none';
+
+}// 根据主营业务生成初始数据（重头开始用）
+
+function initGameData(companyType, capitalWan, business) {
+
+    const capital = capitalWan * 10000;
+
+    let baseArtists = [], baseChat = [], baseDouyin = [], baseMoments = [], baseContacts = [];
+
+    if (business === '娱乐') {
+
+        baseArtists = ['林小溪(已发歌)', '苏栀(合同审核中)', '薛晚宁(背调)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `公司成立！注册资本${capitalWan}万，类型${companyType}，主营娱乐传媒。`, time: '09:00', law: '公司法第23条' },
+
+            { sender: '傅西洲', text: '撤三程序已启动，对方举证期剩余38天。', time: '09:05', law: '商标法第49条' },
+
+            { sender: '沈如鸢', text: '苏栀（黑红小花）有意向签约，道德条款需重点设计。', time: '09:10' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '小梦', desc: '多巴胺穿搭转场', likes: 3420, comments: ['好看'] },
+
+            { user: '诺成时代', desc: '林小溪录音室花絮', likes: 892, comments: ['期待'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '林小溪', content: '新歌筹备中🎵', likes: 28, comments: ['加油'] },
+
+            { user: '沈如鸢', content: '正在洽谈苏栀', likes: 12, comments: [] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '监事/法务', contract: '无固定期限' },
+
+            { name: '傅西洲', role: '总裁', contract: '3年+期权1%' },
+
+            { name: '沈如鸢', role: '艺人总监', contract: '试用期' },
+
+            { name: '陆知行', role: '商务总监', contract: '试用期' }
+
+        ];
+
+    } else if (business === 'MCN') {
+
+        baseArtists = ['小梦(博主)', '阿布(美妆)', '小陈(剧情)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `MCN机构成立，注册资本${capitalWan}万，主营博主孵化。`, time: '09:00' },
+
+            { sender: '运营总监', text: '目前已签约3位博主，急需商务资源。', time: '09:05' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '小梦', desc: '多巴胺穿搭', likes: 5000, comments: ['好美'] },
+
+            { user: '阿布', desc: '口红试色', likes: 2300, comments: ['买它'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '小梦', content: '签约新公司啦', likes: 150, comments: ['恭喜'] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '法务', contract: '全职' },
+
+            { name: '运营总监', role: '内容运营', contract: '3年' }
+
+        ];
+
+    } else if (business === '体育') {
+
+        baseArtists = ['刘翔(田径)', '孙杨(游泳)'];
+
+        baseChat = [
+
+            { sender: '小法', text: `体育经纪公司成立，注册资本${capitalWan}万。`, time: '09:00' },
+
+            { sender: '经纪人', text: '已接触两位运动员，需要赛事资源。', time: '09:05' }
+
+        ];
+
+        baseDouyin = [
+
+            { user: '体育频道', desc: '运动员训练日常', likes: 1200, comments: ['加油'] }
+
+        ];
+
+        baseMoments = [
+
+            { user: '刘翔', content: '新赛季备战', likes: 88, comments: [] }
+
+        ];
+
+        baseContacts = [
+
+            { name: '小法', role: '法务', contract: '全职' },
+
+            { name: '体育总监', role: '赛事对接', contract: '2年' }
+
+        ];
+
+    }
+
+    const initMoney = capital * 2;
+
+    return {
+
+        companyType, capital, business,
+
+        money: initMoney,
+
+        artists: baseArtists,
+
+        withdrawalDaysLeft: 38,
+
+        transactions: [{ date: '开张日', desc: '注册资本', amount: capital }, { date: '开张日', desc: '天使投资', amount: capital }],
+
+        chatHistory: baseChat,
+
+        douyinVideos: baseDouyin,
+
+        moments: baseMoments,
+
+        contacts: baseContacts
+
+    };
+
+}
+
+function saveFullGame() {
+
+    const fullData = { gameActive, state, chatHistory, douyinVideos, moments, contacts, version: '2.0' };
+
+    localStorage.setItem('nuocheng_full_save', JSON.stringify(fullData));
+
+}
+
+function loadFullGame() {
+
+    const raw = localStorage.getItem('nuocheng_full_save');
+
+    if (raw) {
+
+        try {
+
+            const data = JSON.parse(raw);
+
+            gameActive = data.gameActive;
+
+            state = data.state;
+
+            chatHistory = data.chatHistory;
+
+            douyinVideos = data.douyinVideos;
+
+            moments = data.moments;
+
+            contacts = data.contacts;
+
+            return true;
+
+        } catch(e) { return false; }
+
+    }
+
+    return false;
+
+}
+
+function showEntryScreen() {
+
+    document.getElementById('entryScreen').style.display = 'flex';
+
+    document.getElementById('createPage').classList.remove('active-page');
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+
+    document.getElementById('inputBar').style.display = 'none';
+
+    gameActive = false;
+
+}
+
+function hardResetAndNew() {
+
+    localStorage.removeItem('nuocheng_full_save');
+
+    gameActive = false;
+
+    document.getElementById('entryScreen').style.display = 'none';
+
+    document.getElementById('createPage').classList.add('active-page');
+
+    document.querySelectorAll('.page').forEach(p => {
+
+        if(p.id !== 'createPage') p.classList.remove('active-page');
+
+    });
+
+    document.getElementById('inputBar').style.display = 'none';
+
+}function startNewGame() {
+
+    const companyType = document.getElementById('companyType').value;
+
+    const capitalWan = parseInt(document.getElementById('capital').value);
+
+    const business = document.getElementById('businessType').value;
+
+    if (isNaN(capitalWan) || capitalWan < 10) { alert('注册资本至少10万元'); return; }
+
+    const initData = initGameData(companyType, capitalWan, business);
+
+    state = {
+
+        companyType: initData.companyType,
+
+        capital: initData.capital,
+
+        business: initData.business,
+
+        money: initData.money,
+
+        artists: initData.artists,
+
+        withdrawalDaysLeft: initData.withdrawalDaysLeft,
+
+        transactions: initData.transactions
+
+    };
+
+    chatHistory = initData.chatHistory;
+
+    douyinVideos = initData.douyinVideos;
+
+    moments = initData.moments;
+
+    contacts = initData.contacts;
+
+    gameActive = true;
+
+    saveFullGame();
+
+    document.getElementById('createPage').classList.remove('active-page');
+
+    document.getElementById('chatPage').classList.add('active-page');
+
+    document.getElementById('inputBar').style.display = 'flex';
+
+    renderChat(); renderDouyin(); renderMoments(); renderCompany();
+
+    showPage('chat');
+
+}
+
+function continueGame() {
+
+    if(loadFullGame() && gameActive) {
+
+        document.getElementById('entryScreen').style.display = 'none';
+
+        document.getElementById('createPage').classList.remove('active-page');
+
+        document.getElementById('chatPage').classList.add('active-page');
+
+        document.getElementById('inputBar').style.display = 'flex';
+
+        renderChat(); renderDouyin(); renderMoments(); renderCompany();
+
+        showPage('chat');
+
+    } else {
+
+        alert('没有找到存档，请先重头开始游戏');
+
+        hardResetAndNew();
+
+    }
+
+}
+
+function renderChat() {
+
+    const container = document.getElementById('chatPage');
+
+    if(!container) return;
+
+    container.innerHTML = chatHistory.map(msg => `
+
+        <div class="chat-bubble">
+
+            <div class="avatar">${msg.sender[0]}</div>
+
+            <div class="bubble">
+
+                <div class="bubble-name">${msg.sender}</div>
+
+                <div>${msg.text}</div>
+
+                ${msg.law ? `<div class="law-tag">📖 ${msg.law}</div>` : ''}
+
+                <div style="font-size:10px; color:#aaa; margin-top:4px;">${msg.time}</div>
+
+            </div>
+
+        </div>
+
+    `).join('');
+
+}
+
+function renderDouyin() {
+
+    const container = document.getElementById('douyinPage');
+
+    if(container) container.innerHTML = douyinVideos.map(v => `
+
+        <div class="douyin-card">
+
+            <div class="video-placeholder">🎬 ${v.desc}</div>
+
+            <div style="padding:12px"><strong>@${v.user}</strong><div>❤️ ${v.likes} 👍 评论:${v.comments.join(',')}</div></div>
+
+        </div>
+
+    `).join('');
+
+}
+
+function renderMoments() {
+
+    const container = document.getElementById('momentsPage');
+
+    if(container) container.innerHTML = moments.map(m => `
+
+        <div style="background:white; margin-bottom:12px; padding:12px; border-radius:16px;">
+
+            <strong>${m.user}</strong><div>${m.content}</div>
+
+            <div>❤️ ${m.likes}  👍 <button class="like-moment">点赞</button>  💬 ${m.comments.join(',')}</div>
+
+        </div>
+
+    `).join('');
+
+}
+
+function renderCompany() {
+
+    const container = document.getElementById('companyPage');
+
+    if(container) container.innerHTML = `
+
+        <div class="card"><div>💰 资金: ${state.money?.toLocaleString()}</div>
+
+        <div>🏢 类型: ${state.companyType} | 注册资本: ${state.capital/10000}万</div>
+
+        <div>🎤 艺人: ${state.artists?.join(', ')}</div>
+
+        <div>⚖️ 撤三剩余: ${state.withdrawalDaysLeft}天</div>
+
+        <div>📌 主营: ${state.business}</div></div>
+
+        <div class="card">${contacts.map(c => `<div><strong>${c.name}</strong> ${c.role} · ${c.contract}</div>`).join('')}</div>
+
+        <div class="card"><strong>合同档案</strong><br>经纪约·道德条款·独占许可</div>
+
+    `;
+
+}
+
+function showPage(pageId) {
+
+    if(!gameActive) return;
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+
+    document.getElementById(`${pageId}Page`).classList.add('active-page');
+
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+    const targetNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+
+    if(targetNav) targetNav.classList.add('active');
+
+    if(pageId === 'chat') renderChat();
+
+    if(pageId === 'douyin') renderDouyin();
+
+    if(pageId === 'moments') renderMoments();
+
+    if(pageId === 'company') renderCompany();
+
+}async function processCommand(cmd) {
+
+    if(!gameActive) return;
+
+    if(cmd.includes('见薛晚宁')) {
+
+        const storyDiv = document.getElementById('fullscreenStory');
+
+        document.getElementById('storyText').innerText = '🎭 外出剧情：薛晚宁，话剧院台柱，气质清冷，同意签约但需保留剧团档期。';
+
+        storyDiv.classList.add('active');
+
+        return;
+
+    }
+
+    const apiKey = localStorage.getItem('deepseek_api_key');
+
+    if(apiKey && apiKey.startsWith('sk-')) {
+
+        try {
+
+            const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+
+                method:'POST',
+
+                headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},
+
+                body:JSON.stringify({ model:'deepseek-chat', messages:[{ role:'user', content:cmd }] })
+
+            });
+
+            const data = await res.json();
+
+            const reply = data.choices[0].message.content;
+
+            chatHistory.push({ sender:'小法', text:reply, time:new Date().toLocaleTimeString() });
+
+            renderChat();
+
+            saveFullGame();
+
+        } catch(e) { alert('API调用失败'); }
+
+    } else {
+
+        if(cmd.includes('签苏栀')) {
+
+            chatHistory.push({ sender:'沈如鸢', text:'苏栀签约完成，道德条款生效。', time:'刚刚' });
+
+            state.money -= 600000;
+
+            state.artists = state.artists.map(a => a === '苏栀(合同审核中)' ? '苏栀(已签约)' : a);
+
+            renderCompany();
+
+        } else if(cmd.includes('撤三')) {
+
+            chatHistory.push({ sender:'傅西洲', text:'对方未举证，撤三成功概率高。', time:'刚刚', law:'行政程序' });
+
+        } else {
+
+            chatHistory.push({ sender:'小法', text:`收到指令“${cmd}”，已处理。`, time:'刚刚' });
+
+        }
+
+        renderChat();
+
+        saveFullGame();
+
+    }
+
+}async function processCommand(cmd) {
+
+    if(!gameActive) return;
+
+    if(cmd.includes('见薛晚宁')) {
+
+        const storyDiv = document.getElementById('fullscreenStory');
+
+        document.getElementById('storyText').innerText = '🎭 外出剧情：薛晚宁，话剧院台柱，气质清冷，同意签约但需保留剧团档期。';
+
+        storyDiv.classList.add('active');
+
+        return;
+
+    }
+
+    const apiKey = localStorage.getItem('deepseek_api_key');
+
+    if(apiKey && apiKey.startsWith('sk-')) {
+
+        try {
+
+            const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+
+                method:'POST',
+
+                headers:{'Content-Type':'application/json','Authorization':`Bearer ${apiKey}`},
+
+                body:JSON.stringify({ model:'deepseek-chat', messages:[{ role:'user', content:cmd }] })
+
+            });
+
+            const data = await res.json();
+
+            const reply = data.choices[0].message.content;
+
+            chatHistory.push({ sender:'小法', text:reply, time:new Date().toLocaleTimeString() });
+
+            renderChat();
+
+            saveFullGame();
+
+        } catch(e) { alert('API调用失败'); }
+
+    } else {
+
+        if(cmd.includes('签苏栀')) {
+
+            chatHistory.push({ sender:'沈如鸢', text:'苏栀签约完成，道德条款生效。', time:'刚刚' });
+
+            state.money -= 600000;
+
+            state.artists = state.artists.map(a => a === '苏栀(合同审核中)' ? '苏栀(已签约)' : a);
+
+            renderCompany();
+
+        } else if(cmd.includes('撤三')) {
+
+            chatHistory.push({ sender:'傅西洲', text:'对方未举证，撤三成功概率高。', time:'刚刚', law:'行政程序' });
+
+        } else {
+
+            chatHistory.push({ sender:'小法', text:`收到指令“${cmd}”，已处理。`, time:'刚刚' });
+
+        }
+
+        renderChat();
+
+        saveFullGame();
+
+    }
+
+}// 绑定UI事件
+
+    document.getElementById('startGameBtn').onclick = startNewGame;
+
+    document.getElementById('sendBtn').onclick = async () => {
+
+        const input = document.getElementById('freeInput').value;
+
+        if(input.trim()) await processCommand(input);
+
+        document.getElementById('freeInput').value = '';
+
+    };
+
+    document.getElementById('quickOptions').innerHTML = ['签苏栀','撤三进度','见薛晚宁','小梦MCN'].map(opt => `<button class="opt-btn" data-opt="${opt}">${opt}</button>`).join('');
+
+    document.querySelectorAll('.opt-btn').forEach(btn => {
+
+        btn.onclick = () => document.getElementById('freeInput').value = btn.innerText;
+
+    });
+
+    document.querySelectorAll('.nav-item[data-page]').forEach(btn => {
+
+        btn.addEventListener('click', () => showPage(btn.dataset.page));
+
+    });
+
+    document.getElementById('settingsBtn').onclick = () => document.getElementById('settingsPanel').classList.add('open');
+
+    document.getElementById('closeSettings').onclick = () => document.getElementById('settingsPanel').classList.remove('open');
+
+    document.getElementById('saveApiKey').onclick = () => {
+
+        localStorage.setItem('deepseek_api_key', document.getElementById('apiKeyInput').value);
+
+        alert('已保存');
+
+    };
+
+    document.getElementById('exportSaveBtn').onclick = () => {
+
+        const full = { gameActive, state, chatHistory, douyinVideos, moments, contacts };
+
+        const a = document.createElement('a');
+
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(full)]));
+
+        a.download = 'nuocheng_save.json';
+
+        a.click();
+
+    };
+
+    document.getElementById('importSaveBtn').onclick = () => {
+
+        const inp = document.createElement('input');
+
+        inp.type = 'file';
+
+        inp.onchange = e => {
+
+            const file = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.onload = ev => {
+
+                const data = JSON.parse(ev.target.result);
+
+                gameActive = data.gameActive;
+
+                state = data.state;
+
+                chatHistory = data.chatHistory;
+
+                douyinVideos = data.douyinVideos;
+
+                moments = data.moments;
+
+                contacts = data.contacts;
+
+                saveFullGame();
+
+                location.reload();
+
+            };
+
+            reader.readAsText(file);
+
+        };
+
+        inp.click();
+
+    };
+
+    document.getElementById('resetGameBtn').onclick = () => {
+
+        if(confirm('重置游戏将清除当前进度，回到选择界面。确定吗？')) {
+
+            showEntryScreen();
+
+        }
+
+    };
+
+    document.getElementById('backToPhone').onclick = () => {
+
+        document.getElementById('fullscreenStory').classList.remove('active');
+
+    };
+
+    document.getElementById('uploadRef').onchange = (e) => {
+
+        const file = e.target.files[0];
+
+        if(file) document.getElementById('uploadStatus').innerText = `已选: ${file.name}`;
+
+    };
+
+    document.getElementById('continueBtn').onclick = continueGame;
+
+    document.getElementById('restartBtn').onclick = () => {
+
+        if(confirm('重头开始会清除当前存档，确定吗？')) {
+
+            hardResetAndNew();
+
+        }
+
+    };
+
+    const hasSave = localStorage.getItem('nuocheng_full_save') !== null;
+
+    if(hasSave) {
+
+        showEntryScreen();
+
+    } else {
+
+        hardResetAndNew();
+
+    }
+
+</script>
+
+</body>
+
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
